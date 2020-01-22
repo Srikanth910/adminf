@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+ import  axios from 'axios'
 import { registerUser } from '../../actions/authActions';
+import Axios from 'axios';
 
 class Register extends Component {
   constructor() {
@@ -22,7 +24,7 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/Dashboard');
     }
   }
 
@@ -43,15 +45,19 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2:this.state.password2
+    
     };
+     console.log('registerdata', newUser)
+
+
 
     this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
     const { errors } = this.state;
-
+ console.log('errors', errors.data)
     return (
       <div className="register">
         <div className="container">
