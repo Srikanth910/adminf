@@ -53,6 +53,7 @@ class Register extends Component {
 
 
     this.props.registerUser(newUser, this.props.history);
+    console.log('errors', this.props.errors.name)
   }
 
   render() {

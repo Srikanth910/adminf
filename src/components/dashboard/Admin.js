@@ -3,12 +3,18 @@ import React, { Component } from 'react';
 import Spinner from '../common/Spinner'
 
   import { connect } from 'react-redux'
-   import { getCurrentProfile} from '../../actions/profileAction'
+   import { getCurrentProfile,deleteAccount} from '../../actions/profileAction'
 import { Link } from 'react-router-dom';
+import  ProfileAction from '../dashboard/ProfileAction'
 class Admin extends Component {
  componentDidMount(){
      console.log('component called')
       this.props.getCurrentProfile();
+ }
+
+ onDeleteClick=(e)=>{
+ this.props.deleteAccount()   ;
+
  }
      
     render() {
@@ -23,15 +29,27 @@ class Admin extends Component {
             dashboardcontent=<Spinner/>
           }else{
             if(Object.keys(profile).length> 0){
-                dashboardcontent=(
-                    <div>
-                <p className="lead text-muted"> welcome:{user.name}</p>
-                <Link to="/CreateProfile" className="btn btn--g btn-info">CreateProfile</Link>
+              dashboardcontent=(
+                <div>
+            <p className="lead text-muted">welcome <Link to ={`/profile/${profile.handle}`}>{user.name}</Link></p>
+            <ProfileAction/>
+         <div style={{marginBottom:'60px'}}/>
+         <button className="btn btn-danger"  onClick={this.onDeleteClick.bind(this)}> Delete my Account</button>
+                
                 </div>
-                )
+                
+              )
+            
+               
                
             }else{
-                dashboardcontent=<h4>TODO:disply profile</h4>
+               
+                dashboardcontent=(
+                  <div>
+              <p className="lead text-muted"> welcome:{user.name}</p>
+              <Link to="/CreateProfile" className="btn btn--g btn-info">CreateProfile</Link>
+              </div>
+              )
                 
             }
           }
@@ -45,6 +63,7 @@ class Admin extends Component {
 
  Admin.PropTypes={
       getCurrentProfile:PropTypes.func.isRequired,
+      deleteAccount:PropTypes.func.isRequired,
       profile:PropTypes.object.isRequired,
       auth:PropTypes.object.isRequired
  }
@@ -55,5 +74,5 @@ const mapStateToProps = state => ({
     errors: state.errors
   });
 
- export default connect(mapStateToProps,{getCurrentProfile})(Admin);
+ export default connect(mapStateToProps,{getCurrentProfile, deleteAccount})(Admin);
  

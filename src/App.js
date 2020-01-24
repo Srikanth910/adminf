@@ -15,10 +15,12 @@ import Login from './components/auth/Login';
 
 import './App.css';
 import Admin from './components/dashboard/Admin';
-import { clearProfile } from './actions/profileAction';
+import { clearProfile, createProfileData } from './actions/profileAction';
 import PrivateRoute from './components/common/PrivateRoute';
 import CreateProfile from './components/create-Profile/CreateProfile';
-
+import EditProfile from './components/edit-profile/EditProfile';
+ import AddExperience from './components/add-credentials/AddEducation'
+  import  AddEducation  from './components/add-credentials/AddExperience'
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -44,23 +46,55 @@ if (localStorage.jwtToken) {
 class App extends Component {
   render() {
     return (
+
+
+
+
       <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <div className="container">
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-   <Switch>
-              <PrivateRoute  path="/Admin" component={Admin} />
-              <PrivateRoute path ="/CreateProfile" component={CreateProfile}/>
-              </Switch>
-            </div>
-            <Footer />
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Switch>
+              <PrivateRoute exact path="/Admin" component={Admin} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={createProfileData}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-experience"
+                component={AddExperience}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-education"
+              component={AddEducation}
+              />
+            </Switch>
           </div>
-        </Router>
-      </Provider>
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
+     
     );
   }
 }

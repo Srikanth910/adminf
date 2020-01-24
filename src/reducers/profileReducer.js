@@ -1,5 +1,5 @@
 
-import {GET_PROFILE,PROFILE_LOADING,PROFILE_NOT_FOUND,CLEAR_CURRENT_RPOFILE} from '../actions/types';
+import {GET_PROFILE,PROFILE_LOADING,PROFILE_NOT_FOUND,CLEAR_CURRENT_RPOFILE, GET_PROFILES} from '../actions/types';
 
 const  insitialState={
     profile:null,
@@ -19,6 +19,15 @@ const  insitialState={
                       loading:false,
                       profile:action.payload,
                   };
+
+                  case  GET_PROFILES:
+                      return{
+                          ...state,
+                          loading:false,
+                          profiles:action.payload
+                      }
+
+
                    case CLEAR_CURRENT_RPOFILE:{
                  return{
                       ...state,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER ,SET_CURRENT} from './types';
+import { GET_ERRORS, SET_CURRENT_USER ,} from './types';
 
 // Register User
 export const registerUser = (registerdata, history) => dispatch => {
@@ -10,10 +10,13 @@ export const registerUser = (registerdata, history) => dispatch => {
 
    
    axios.post('http://localhost:8000/api/users/register', registerdata).
-   then(res=>
-   
-      console.log('responce ',res.data),
-      history.push('/login'))
+   then(res=>{
+    if(res.status===200){
+      history.push('/login')
+      
+    }
+  }
+     )
    
     .catch(err =>
       dispatch({
@@ -26,11 +29,7 @@ export const registerUser = (registerdata, history) => dispatch => {
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
-   console.log(userData)
-
-
-
- 
+  
   axios
     .post('http://localhost:8000/api/users/login', userData)
     .then(res => {
