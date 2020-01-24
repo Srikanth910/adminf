@@ -9,7 +9,7 @@ export const registerUser = (registerdata, history) => dispatch => {
    console.log('user', registerdata)
 
    
-   axios.post('http://localhost:8000/api/users/register', registerdata).
+   axios.post('/api/users/register', registerdata).
    then(res=>{
     if(res.status===200){
       history.push('/login')
@@ -31,7 +31,7 @@ export const registerUser = (registerdata, history) => dispatch => {
 export const loginUser = userData => dispatch => {
   
   axios
-    .post('http://localhost:8000/api/users/login', userData)
+    .post('/api/users/login', userData)
     .then(res => {
       console.log('token resp', res.data.token)
 
